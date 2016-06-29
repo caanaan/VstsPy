@@ -32,9 +32,9 @@ class VstsPy(RestHelper):
             list.append(x['name'])
       return list
 
-   def get_project_json(self, project):
+   def get_project_json(self, project, include_capabilities=False):
       pathList = [ 'defaultcollection', '_apis', 'projects', project ]
-      queryDict = { 'api-version' : '1.0' }
+      queryDict = { 'api-version' : '1.0', 'includeCapabilities' : include_capabilities }
       self.geturl_generic(pathList, queryDict)
       return self.issue_request()
 
