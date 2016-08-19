@@ -158,3 +158,28 @@ class VstsPy(RestHelper):
       queryDict = { 'api-version' : '1.0' }
       self.geturl_generic(pathList, queryDict)
       return self.issue_request()
+
+   #Test related
+
+   def get_test_plans(self, proj_name):
+      #GET https://{instance}/DefaultCollection/{project}/_apis/test/plans?api-version={version}[&owner={string}&includePlanDetails={bool}&filterActivePlans={bool}&$skip={int}&$top={int}]
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'test', 'plans' ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      return self.issue_request()
+
+   def get_test_plans_list(self, proj_name):
+      resp = self.get_test_plans(proj_name)
+      list = []
+      for x in resp.json()['value']:
+         list.append(x)
+      return list
+
+   def get_test_suite(self, proj_name, plan_id):
+      #GET https://{instance}/DefaultCollection/{project}/_apis/test/plans/{plan}/suites?api-version={version}[&$skip={int}&$top={int}&$asTreeView={bool}]
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'test', 'plans', plan_id ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      print self.url
+      return self.issue_request()
+
