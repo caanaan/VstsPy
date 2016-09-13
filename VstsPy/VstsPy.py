@@ -158,3 +158,30 @@ class VstsPy(RestHelper):
       queryDict = { 'api-version' : '1.0' }
       self.geturl_generic(pathList, queryDict)
       return self.issue_request()
+
+   #Test Plan and Suite Related
+   def get_test_plans_json(self, proj_name):
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'test', 'plans' ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      return self.issue_request()
+
+   def get_test_plans_list(self, proj_name):
+      resp = self.get_test_plans_json(proj_name)
+      list = []
+      for x in resp.json()['value']:
+         list.append(x)
+      return list
+
+   def get_test_suites_json(self, proj_name, plan):
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'test', 'plans', plan, 'suites' ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      return self.issue_request()
+
+   def get_test_suites_list(self, proj_name, plan):
+      resp = self.get_test_suites_json(proj_name, plan)
+      list = []
+      for x in resp.json()['value']:
+         list.append(x)
+      return list
