@@ -185,3 +185,10 @@ class VstsPy(RestHelper):
       for x in resp.json()['value']:
          list.append(x)
       return list
+   
+   def update_test_suite(self, proj_name, plan, suite, in_json):
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'test', 'plans', plan, 'suites', suite ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      return self.issue_request(in_json, 'patch')
+

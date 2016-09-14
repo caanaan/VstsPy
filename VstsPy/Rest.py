@@ -74,8 +74,8 @@ class RestHelper:
       self.url = url
 
    #Function to issue a get request to the RESTful API, enabling default users and passwords
-   def issue_request(self):
-      return requests.get(self.url, auth=(self.username, self.password))           
+   def issue_request(self, in_json = '', request_type = 'get'):
+      return getattr(requests, request_type)(self.url, auth=(self.username, self.password), json = in_json)           
 
    #Function to pretty print a Json object
    def pprint_json(self, inJson):
