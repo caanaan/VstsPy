@@ -57,6 +57,24 @@ class VstsPy(RestHelper):
             list.append(x['name'])
       return list
 
+   def get_team_members_json_list(self, project, team):
+      pathList = [ 'defaultcollection', '_apis', 'projects', project, 'teams', team, 'members' ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      resp = self.issue_request()
+      list = []
+      for x in resp.json()['value']:
+         list.append(x)
+      return list
+
+   def get_team_members_name_list(self, project, team):
+      list = []
+      jsonlist = self.get_team_members_json_list(project, team)
+      for x in jsonlist:
+         #Other options displayName, id
+         list.append(x['uniqueName'])
+      return list
+   
    #Board related
    def get_board_json_list(self, project, team):
       pathList = [ 'defaultcollection', project, team, '_apis', 'work', 'boards' ]
