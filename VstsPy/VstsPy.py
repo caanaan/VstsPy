@@ -210,3 +210,14 @@ class VstsPy(RestHelper):
       self.geturl_generic(pathList, queryDict)
       return self.issue_request(in_json, 'patch')
 
+   #Branch Related
+   def get_refs_json(self, proj_name, repo_name):
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'git', 'repositories', repo_name, 'refs' ]
+      queryDict = { 'api-version' : '1.0' }
+      self.geturl_generic(pathList, queryDict)
+      return self.issue_request()
+
+   #Pull Request Related
+   def create_pull_request(self, proj_name, repo_name, in_json):
+      pathList = [ 'defaultcollection', proj_name, '_apis', 'git', 'repositories', repo_name, 'pullRequests' ]
+      queryDict = { 'api-version' : '3.0' }
