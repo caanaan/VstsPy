@@ -221,3 +221,5 @@ class VstsPy(RestHelper):
    def create_pull_request(self, proj_name, repo_name, in_json):
       pathList = [ 'defaultcollection', proj_name, '_apis', 'git', 'repositories', repo_name, 'pullRequests' ]
       queryDict = { 'api-version' : '3.0' }
+      self.geturl_generic(pathList, queryDict)  
+      return self.issue_request(in_json = in_json, request_type = 'post')
